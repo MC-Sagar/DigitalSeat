@@ -1,4 +1,6 @@
-var mysql      = require('mysql');
+const express = require('express');
+const router = express.Router();
+var mysql = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -12,7 +14,7 @@ if(!err) {
     console.log("Error connecting database ... nn");
 }
 });
-exports.login = function(req,res){
+router.post('/login', function(req,res,next){
     var user= req.body.user_name;
     var password = req.body.password;
     connection.query('SELECT * FROM users WHERE user_name = ?',[user], function (error, results, fields) {
@@ -46,4 +48,5 @@ exports.login = function(req,res){
       }
     }
     });
-  }
+  });
+  module.exports = router;
