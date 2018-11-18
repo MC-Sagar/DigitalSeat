@@ -1,22 +1,10 @@
-const express = require('express');
-const router = express.Router();
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'digitalseat'
-});
-connection.connect(function(err){
-if(!err) {
-    console.log("Database is connected ...");
-} else {
-    console.log("Error connecting database ... nn");
-}
-});
+const express = require('express')
+const router = express.Router()
+var connection = require('./connection.js')
+
 router.post('/login', function(req,res,next){
-    var user= req.body.user_name;
-    var password = req.body.password;
+    var user= req.body.user_name
+    var password = req.body.password
     connection.query('SELECT * FROM users WHERE user_name = ?',[user], function (error, results, fields) {
     if (error) {
       // console.log("error ocurred",error);
@@ -31,22 +19,22 @@ router.post('/login', function(req,res,next){
           res.send({
             "code":200,
             "success":"login sucessfull"
-              });
+              })
         }
         else{
           res.send({
             "code":204,
             "success":"Email and password does not match"
-              });
+              })
         }
       }
       else{
         res.send({
           "code":204,
           "success":"Email does not exits"
-            });
+            })
       }
     }
-    });
-  });
-  module.exports = router;
+    })
+  })
+  module.exports = router
