@@ -52,7 +52,7 @@ module.exports = function (app) {
         connection.query(query, function (err, result, field) {
             if (err) throw err
             result.forEach(function(item){
-                var body = 'hello'+item.name+'! your assigned block for todays examination is '+item.block_name+', room name is '+item.room_name+', and your seat is '+item.seat+', all the best for your '+item.course_name+' exam'
+                var body = 'Hello '+item.name+'! Your assigned block for todays examination is '+item.block_name+', room name is '+item.room_name+', and your seat number is '+item.seat+', all the best for your '+item.course_name+' exam!'
                 let mailOptions = {
                 from: '"MC-Sagar" <mc.sagar2@gmail.com>', // sender address
                 to: item.email, // list of receivers
@@ -69,6 +69,7 @@ module.exports = function (app) {
             })
 
         })
+    res.send('done!');
         
 
     })
